@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/dspurplecoins.ogg-7dd95d1d745bd495b6a471395975210c.oggstr"
+
+[deps]
+
+source_file="res://dspurplecoins.ogg"
+dest_files=[ "res://.import/dspurplecoins.ogg-7dd95d1d745bd495b6a471395975210c.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

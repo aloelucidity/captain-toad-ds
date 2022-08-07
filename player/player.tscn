@@ -1,0 +1,209 @@
+[gd_scene load_steps=26 format=2]
+
+[ext_resource path="res://player/captaintoad/jump.png" type="Texture" id=1]
+[ext_resource path="res://player/states/Jump.gd" type="Script" id=2]
+[ext_resource path="res://player/states/Pluck.gd" type="Script" id=3]
+[ext_resource path="res://player/Player.gd" type="Script" id=4]
+[ext_resource path="res://player/Animations.gd" type="Script" id=5]
+[ext_resource path="res://player/Movement.gd" type="Script" id=6]
+[ext_resource path="res://player/captaintoad/walk.png" type="Texture" id=7]
+[ext_resource path="res://player/Holding.gd" type="Script" id=8]
+[ext_resource path="res://player/states/Throw.gd" type="Script" id=9]
+[ext_resource path="res://player/captaintoad/holdwalk.png" type="Texture" id=10]
+[ext_resource path="res://player/captaintoad/throw.png" type="Texture" id=11]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 26, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 1 )
+region = Rect2( 0, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 7 )
+region = Rect2( 26, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 10 )
+region = Rect2( 26, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 7 )
+region = Rect2( 26, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 10 )
+region = Rect2( 26, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 26, 38 )
+
+[sub_resource type="SpriteFrames" id=11]
+animations = [ {
+"frames": [ SubResource( 1 ), SubResource( 2 ) ],
+"loop": true,
+"name": "jump",
+"speed": 24.0
+}, {
+"frames": [ SubResource( 3 ) ],
+"loop": false,
+"name": "idle",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 4 ), SubResource( 5 ) ],
+"loop": true,
+"name": "holdmove",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 6 ) ],
+"loop": false,
+"name": "fall",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "move",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 9 ) ],
+"loop": false,
+"name": "holdidle",
+"speed": 0.0
+}, {
+"frames": [ SubResource( 10 ) ],
+"loop": true,
+"name": "throw",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=12]
+extents = Vector2( 8, 13 )
+
+[sub_resource type="RayShape2D" id=13]
+length = 16.0
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 6, 6 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 85.4633, 308.443 )
+collision_layer = 2
+script = ExtResource( 4 )
+states_path = NodePath("States")
+raycasts_path = NodePath("Raycasts")
+gravity = 17.0
+max_gravity = 700.0
+inputs = {
+"jump": null,
+"move_left": null,
+"move_right": null
+}
+
+[node name="States" type="Node" parent="."]
+
+[node name="Jump" type="Node" parent="States"]
+script = ExtResource( 2 )
+priority = 1
+animation = "jump"
+autoflip = true
+disable_movement = true
+stop_time = 0.5
+detector_path = NodePath("../../GrabDetector")
+holding_path = NodePath("../../Holding")
+
+[node name="Pluck" type="Node" parent="States"]
+script = ExtResource( 3 )
+priority = 2
+animation = "jump"
+autoflip = true
+disable_movement = true
+stop_time = 0.15
+detector_path = NodePath("../../GrabDetector")
+holding_path = NodePath("../../Holding")
+
+[node name="Throw" type="Node" parent="States"]
+script = ExtResource( 9 )
+priority = 3
+animation = "throw"
+autoflip = true
+stop_time = 0.25
+speed_factor = 0.7
+detector_path = NodePath("../../GrabDetector")
+holding_path = NodePath("../../Holding")
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource( 6 )
+walk_accel = 13.0
+turn_accel = 16.0
+overshoot_accel = 4.0
+friction = 24.0
+air_friction = 1.15
+walk_speed = 125.0
+hold_speed = 175.0
+holding_path = NodePath("../Holding")
+
+[node name="Animations" type="Node" parent="."]
+script = ExtResource( 5 )
+prefix = "hold"
+sprite_path = NodePath("../AnimatedSprite")
+movement_path = NodePath("../Movement")
+
+[node name="Holding" type="Node2D" parent="."]
+script = ExtResource( 8 )
+animations_path = NodePath("../Animations")
+
+[node name="Raycasts" type="Node2D" parent="."]
+visible = false
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Ground" type="RayCast2D" parent="Raycasts"]
+enabled = true
+cast_to = Vector2( 0, 18 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 11 )
+animation = "throw"
+playing = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="GrabDetector" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabDetector"]
+position = Vector2( 0, 4 )
+shape = SubResource( 12 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -2 )
+shape = SubResource( 14 )
+__meta__ = {
+"_edit_lock_": true
+}

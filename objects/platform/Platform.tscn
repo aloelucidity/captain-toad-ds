@@ -1,0 +1,55 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://objects/platform/platform.gd" type="Script" id=1]
+[ext_resource path="res://objects/platform/middle.png" type="Texture" id=2]
+[ext_resource path="res://objects/platform/left.png" type="Texture" id=3]
+[ext_resource path="res://objects/platform/right.png" type="Texture" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+resource_local_to_scene = true
+extents = Vector2( 76, 5 )
+
+[node name="Platform" type="KinematicBody2D"]
+position = Vector2( 257.627, 359.139 )
+motion/sync_to_physics = true
+script = ExtResource( 1 )
+segments = 22
+segment_width = 6
+edge_width = 10
+
+[node name="Left" type="TextureRect" parent="."]
+margin_left = -76.0
+margin_right = -66.0
+margin_bottom = 10.0
+texture = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Middle" type="TextureRect" parent="."]
+margin_left = -66.0
+margin_right = 66.0
+margin_bottom = 10.0
+texture = ExtResource( 2 )
+stretch_mode = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Right" type="TextureRect" parent="."]
+margin_left = 66.0
+margin_right = 76.0
+margin_bottom = 10.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, 5 )
+shape = SubResource( 1 )
+one_way_collision = true
+__meta__ = {
+"_edit_lock_": true
+}
