@@ -10,8 +10,14 @@ export(float) var air_friction
 export(float) var walk_speed
 export(float) var hold_speed
 
+export(float) var sound_wait
+
 onready var character = get_parent()
 var direction : int
+var next_sound : float
+
+export var sound_path : NodePath
+onready var sound = get_node(sound_path) 
 
 export var holding_path : NodePath
 onready var holding = get_node(holding_path)
@@ -75,6 +81,16 @@ func handle_friction():
 		if direction != 0 && sign(character.velocity.x) != sign(direction):
 			character.velocity.x = increment_towards(character.velocity.x, 0, walk_accel)
 
-func update(_delta):
+func handle_sounds(delta):
+	if !character.grounded: return
+	if direction != 0:
+		next_sound -= delta
+		if next_sound <= 0:
+			var speed_factor = clamp(abs(character.velocity.x) / walk_speed, 0.5, INF)
+			next_sound = sound_wait / speed_factor
+			sound.play_random()
+
+func update(delta):
 	handle_movement()
 	handle_friction()
+	handle_sounds(delta)

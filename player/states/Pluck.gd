@@ -7,6 +7,9 @@ var jump_timer = 0.0
 var stop_timer = 0.0
 var area
 
+export var sound_path : NodePath
+onready var sound = get_node(sound_path) 
+
 export var detector_path : NodePath
 onready var grab_detector = get_node(detector_path)
 
@@ -25,6 +28,7 @@ func _update(delta):
 	stop_timer -= delta
 
 func _stop(_delta):
+	sound.play_random()
 	holding.grab(area.grab_object())
 
 func _stop_check(_delta):
@@ -34,13 +38,13 @@ func _general_update(delta):
 	if character.grounded:
 		ground_timer = 0.2
 	
-	if is_instance_valid(holding):
-		if is_instance_valid(holding.held_object):
-			jump_timer = 0
 	if is_instance_valid(grab_detector):
 		if grab_detector.get_overlapping_areas().size() > 0:
 			if character.inputs["jump"][1]:
 				jump_timer = 0.2
+	if is_instance_valid(holding):
+		if is_instance_valid(holding.held_object):
+			jump_timer = 0
 	
 	if jump_timer > 0:
 		jump_timer -= delta

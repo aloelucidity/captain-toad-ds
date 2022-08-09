@@ -11,6 +11,7 @@ extents = Vector2( 76, 5 )
 
 [node name="Platform" type="KinematicBody2D"]
 position = Vector2( 257.627, 359.139 )
+z_as_relative = false
 motion/sync_to_physics = true
 script = ExtResource( 1 )
 segments = 22

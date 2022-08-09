@@ -8,5 +8,5 @@ func _ready():
 	$ViewportContainer/Viewport.add_child(scene)
 	$ViewportContainer2/Viewport.world_2d = $ViewportContainer/Viewport.world_2d
 	
-	$ViewportContainer/Viewport/Camera2D.follow = scene.get_node("Player")
-	$ViewportContainer2/Viewport/Camera2D.follow = scene.get_node("Player")
+	$ViewportContainer/Viewport/Camera2D.follow = scene.get_node("Globals/Player")
+	$ViewportContainer2/Viewport/Camera2D.follow = scene.get_node("Globals/Player")

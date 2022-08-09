@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/SeResourceStdSystem_00000207.wav-11f95a8a4811005149b97a567abbbf19.sample"
+
+[deps]
+
+source_file="res://player/captaintoad/voice/SeResourceStdSystem_00000207.wav"
+dest_files=[ "res://.import/SeResourceStdSystem_00000207.wav-11f95a8a4811005149b97a567abbbf19.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

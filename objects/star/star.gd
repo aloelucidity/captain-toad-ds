@@ -1,9 +1,5 @@
-extends LevelObject
+extends Area2D
 
-# functions
-func load_object():
-	var scene = preload("res://level/objects/star/star.tscn").instance()
-	add_child(scene)
-	
-	loaded = true
-	return self
+
+func body_entered(body):
+	get_tree().change_scene("res://MissionSelect.tscn")

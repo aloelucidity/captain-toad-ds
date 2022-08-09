@@ -1,12 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Display.gd" type="Script" id=1]
-[ext_resource path="res://Background.tscn" type="PackedScene" id=2]
+[ext_resource path="res://level/Background2.tscn" type="PackedScene" id=2]
 [ext_resource path="res://camera/Follow.gd" type="Script" id=3]
+[ext_resource path="res://Coins.tscn" type="PackedScene" id=4]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
-scene_path = "res://Main.tscn"
+__meta__ = {
+"_edit_lock_": true
+}
+scene_path = "res://missions/0.tscn"
 
 [node name="ViewportContainer" type="ViewportContainer" parent="."]
 margin_top = 192.0
@@ -24,12 +28,13 @@ handle_input_locally = false
 render_target_update_mode = 3
 audio_listener_enable_2d = true
 
-[node name="CanvasLayer" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
-
 [node name="Camera2D" type="Camera2D" parent="ViewportContainer/Viewport"]
 current = true
+limit_bottom = 450
 script = ExtResource( 3 )
 follow_speed = 12.0
+
+[node name="CanvasLayer" parent="ViewportContainer/Viewport" instance=ExtResource( 2 )]
 
 [node name="ViewportContainer2" type="ViewportContainer" parent="."]
 margin_right = 256.0
@@ -44,10 +49,26 @@ size = Vector2( 256, 192 )
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="CanvasLayer" parent="ViewportContainer2/Viewport" instance=ExtResource( 2 )]
-
 [node name="Camera2D" type="Camera2D" parent="ViewportContainer2/Viewport"]
-offset = Vector2( 0, -192 )
+offset = Vector2( 0, -240 )
 current = true
+limit_bottom = 258
 script = ExtResource( 3 )
 follow_speed = 12.0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="ViewportContainer2/Viewport"]
+layer = 128
+
+[node name="Coins" parent="ViewportContainer2/Viewport/CanvasLayer2" instance=ExtResource( 4 )]
+margin_left = 3.0
+margin_top = 165.0
+margin_right = 43.0
+margin_bottom = 205.0
+
+[node name="CanvasLayer" parent="ViewportContainer2/Viewport" instance=ExtResource( 2 )]
+
+[node name="ParallaxBackground" parent="ViewportContainer2/Viewport/CanvasLayer" index="1"]
+offset = Vector2( 0, -19200 )
+transform = Transform2D( 1, 0, 0, 1, 0, -19200 )
+
+[editable path="ViewportContainer2/Viewport/CanvasLayer"]

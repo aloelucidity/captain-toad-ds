@@ -189,8 +189,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Captain Toad DS"
-run/main_scene="res://Display.tscn"
+run/main_scene="res://MissionSelect.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GlobalVars="*res://GlobalVars.gd"
 
 [display]
 

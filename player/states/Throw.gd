@@ -8,6 +8,9 @@ var jump_timer = 0.0
 var stop_timer = 0.0
 var area
 
+export var sound_path : NodePath
+onready var sound = get_node(sound_path) 
+
 export var detector_path : NodePath
 onready var grab_detector = get_node(detector_path)
 
@@ -23,6 +26,7 @@ func _start_check(_delta):
 func _start(delta):
 	jump_timer = 0
 	stop_timer = stop_time
+	sound.play_random()
 	holding.throw()
 	character.velocity.x *= speed_factor
 

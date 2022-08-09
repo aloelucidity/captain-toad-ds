@@ -21,7 +21,9 @@ func getter():
 	return segments
 
 func _ready():
-	collision.shape = collision.shape.duplicate()
+	collision.shape = RectangleShape2D.new()
+	collision.shape.extents.y = 5
+	resize()
 
 func _physics_process(delta):
 	if !is_instance_valid(follow_node): return
@@ -37,7 +39,4 @@ func resize():
 	right.rect_position.x = middle.rect_position.x + middle.rect_size.x
 	
 	collision.position.x = middle.rect_position.x + (middle.rect_size.x/2)
-	if collision.shape == null:
-		collision.shape = RectangleShape2D.new()
-		collision.shape.extents.y = 5
 	collision.shape.extents.x = total_size / 2

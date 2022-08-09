@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://objects/star/frames.tres" type="SpriteFrames" id=1]
+
+[node name="Control" type="Control"]
+margin_left = 48.0
+margin_right = 48.0
+margin_bottom = 320.0
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = ExtResource( 1 )
+frame = 4
+playing = true

@@ -1,0 +1,359 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://level/mission_select.ogg" type="AudioStream" id=1]
+[ext_resource path="res://MarioAndLuigi-0v99.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://player/captaintoad/walk.png" type="Texture" id=4]
+[ext_resource path="res://MissionSelect.gd" type="Script" id=5]
+[ext_resource path="res://random_sound.gd" type="Script" id=6]
+[ext_resource path="res://player/captaintoad/voice/SeResourceStdSystem_00000207.wav" type="AudioStream" id=7]
+[ext_resource path="res://player/captaintoad/voice/SeResourceStdSystem_00000206.wav" type="AudioStream" id=8]
+[ext_resource path="res://player/captaintoad/voice/SeResourceStdSystem_00000212.wav" type="AudioStream" id=9]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+render_mode unshaded;
+ 
+uniform float intensity;
+uniform float r_vertical;
+uniform float g_vertical;
+uniform float b_vertical;
+
+void fragment()
+{
+	float texture_alpha = texture(TEXTURE, UV).a;
+
+	if (texture_alpha > 0.0)
+	{
+		COLOR = vec4(
+			UV.y * r_vertical * intensity,
+			UV.y * g_vertical * intensity,
+			UV.y * b_vertical * intensity,
+			texture_alpha
+		);
+		
+		COLOR += vec4(0.25, 0.25, 0.25, 0)
+	}
+	else
+	{
+		COLOR = texture(TEXTURE, UV)
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/intensity = 6.0
+shader_param/r_vertical = 0.0
+shader_param/g_vertical = 3.0
+shader_param/b_vertical = 5.0
+
+[sub_resource type="DynamicFont" id=3]
+size = 18
+outline_color = Color( 1, 0.505882, 0.392157, 0 )
+extra_spacing_top = 4
+extra_spacing_char = 1
+font_data = ExtResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 1 )
+shader_param/intensity = 6.0
+shader_param/r_vertical = 3.0
+shader_param/g_vertical = 0.0
+shader_param/b_vertical = 0.0
+
+[sub_resource type="DynamicFont" id=5]
+size = 14
+outline_color = Color( 1, 0.505882, 0.392157, 0 )
+extra_spacing_top = 4
+extra_spacing_char = 1
+font_data = ExtResource( 3 )
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 1 )
+shader_param/intensity = 6.0
+shader_param/r_vertical = 0.0
+shader_param/g_vertical = 0.0
+shader_param/b_vertical = 5.0
+
+[sub_resource type="DynamicFont" id=7]
+outline_color = Color( 1, 0.505882, 0.392157, 0 )
+extra_spacing_top = 4
+extra_spacing_char = 1
+font_data = ExtResource( 3 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 26, 38 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 4 )
+region = Rect2( 26, 0, 26, 38 )
+
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 6.0
+} ]
+
+[sub_resource type="Animation" id=11]
+resource_name = "RESET"
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -5.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Control2/AnimatedSprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 128, 70 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Control2/AnimatedSprite:speed_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "select"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("ColorRect2:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 1, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 2 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "select_mission"
+} ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AudioStreamPlayer:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ -5.0, -80.0 ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("AudioStreamPlayer2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ 0.0 ],
+"method": "play_random"
+} ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Control2/AnimatedSprite:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.2, 0.6, 0.7, 2 ),
+"transitions": PoolRealArray( 0.5, 1, 2, 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 128, 70 ), Vector2( 128, 54 ), Vector2( 128, 54 ), Vector2( 128, 70 ), Vector2( 384, 70 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Control2/AnimatedSprite:speed_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 1.0, 3.0, 3.0 ]
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 5 )
+stars = {
+"Captain Toad Goes Forth": "res://missions/0.tscn",
+"Placeholder": "res://missions/0.tscn"
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 256.0
+margin_bottom = 384.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+volume_db = -5.0
+autoplay = true
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+bus = "Voices"
+script = ExtResource( 6 )
+streams = [ ExtResource( 8 ), ExtResource( 7 ), ExtResource( 9 ) ]
+
+[node name="Control" type="Control" parent="."]
+margin_right = 256.0
+margin_bottom = 192.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control"]
+modulate = Color( 1, 0.741176, 0.741176, 1 )
+material = SubResource( 2 )
+margin_top = 38.0
+margin_right = 256.0
+margin_bottom = 83.0
+custom_fonts/normal_font = SubResource( 3 )
+custom_colors/default_color = Color( 1, 0.854902, 0.760784, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]MISSION SELECT[/center]"
+text = "MISSION SELECT"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Control"]
+modulate = Color( 1, 0.741176, 0.741176, 1 )
+material = SubResource( 4 )
+margin_top = 120.0
+margin_right = 256.0
+margin_bottom = 165.0
+custom_fonts/normal_font = SubResource( 5 )
+custom_colors/default_color = Color( 1, 0.854902, 0.760784, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]Captain Toad Goes Forth[/center]"
+text = "Captain Toad Goes Forth"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control"]
+margin_top = 94.0
+margin_right = 256.0
+margin_bottom = 414.0
+custom_constants/separation = 32
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Polygon2D" type="Polygon2D" parent="Control"]
+position = Vector2( 48, 78 )
+color = Color( 1, 0.482353, 0.482353, 1 )
+antialiased = true
+polygon = PoolVector2Array( 0, 0, -5, -8, 5, -8 )
+
+[node name="Control2" type="Control" parent="."]
+margin_top = 192.0
+margin_right = 256.0
+margin_bottom = 384.0
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Control2"]
+modulate = Color( 1, 0.741176, 0.741176, 1 )
+material = SubResource( 6 )
+margin_top = 112.0
+margin_right = 256.0
+margin_bottom = 145.0
+custom_fonts/normal_font = SubResource( 7 )
+custom_colors/default_color = Color( 1, 0.854902, 0.760784, 1 )
+bbcode_enabled = true
+bbcode_text = "[center]TOUCH ME![/center]"
+text = "TOUCH ME!"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Control2"]
+position = Vector2( 128, 70 )
+scale = Vector2( 2, 2 )
+frames = SubResource( 10 )
+playing = true
+
+[node name="Button" type="Button" parent="Control2"]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 256.0
+margin_bottom = 192.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 11 )
+anims/select = SubResource( 12 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_right = 256.0
+margin_bottom = 384.0
+mouse_filter = 2
+color = Color( 1, 1, 1, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Control2/Button" to="." method="pressed"]

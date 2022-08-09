@@ -4,6 +4,9 @@ class_name Player
 var camera = null
 onready var animations = $Animations
 
+func _init():
+	GlobalVars.coins = 0
+
 func _physics_process(delta):
 	process_inputs()
 	process_collisions(delta)
