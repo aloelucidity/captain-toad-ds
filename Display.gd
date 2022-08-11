@@ -1,10 +1,14 @@
 extends Node2D
 
-export var scene_path : String
 var scene
-
 func _ready():
-	scene = load(scene_path).instance()
+	var bg1 = load(GlobalVars.bg).instance()
+	$ViewportContainer/Viewport.add_child(bg1)
+	var bg2 = load(GlobalVars.bg).instance()
+	bg2.get_node("ParallaxBackground").queue_free()
+	$ViewportContainer2/Viewport.add_child(bg2)
+	
+	scene = load(GlobalVars.mission).instance()
 	$ViewportContainer/Viewport.add_child(scene)
 	$ViewportContainer2/Viewport.world_2d = $ViewportContainer/Viewport.world_2d
 	

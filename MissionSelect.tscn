@@ -231,7 +231,7 @@ tracks/5/keys = {
 script = ExtResource( 5 )
 stars = {
 "Captain Toad Goes Forth": "res://missions/0.tscn",
-"Placeholder": "res://missions/0.tscn"
+"Placeholder": "res://missions/1.tscn"
 }
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -333,6 +333,7 @@ __meta__ = {
 position = Vector2( 128, 70 )
 scale = Vector2( 2, 2 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
 
 [node name="Button" type="Button" parent="Control2"]

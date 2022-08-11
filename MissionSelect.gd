@@ -20,6 +20,11 @@ func change_select():
 	$Control/RichTextLabel3.bbcode_text = "[center]" + stars.keys()[selected_star] + "[/center]"
 
 func select_mission():
+	if selected_star == 0:
+		GlobalVars.bg = "res://level/Background2.tscn"
+	else:
+		GlobalVars.bg = "res://level/Background.tscn"
+	GlobalVars.mission = stars[stars.keys()[selected_star]]
 	get_tree().change_scene("res://Display.tscn")
 
 func pressed():
